@@ -11,6 +11,7 @@ import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 import { Profile, SidebarNav, UpgradePlan } from './components';
 
@@ -47,6 +48,11 @@ const Sidebar = props => {
       title: 'Dashboard',
       href: '/dashboard',
       icon: <DashboardIcon />
+    },
+    {
+      title: 'Ponuda',
+      href: '/offer',
+      icon: <LocalOfferIcon />
     },
     {
       title: 'Users',
@@ -97,13 +103,10 @@ const Sidebar = props => {
         {...rest}
         className={clsx(classes.root, className)}
       >
-        <Profile />
-        <Divider className={classes.divider} />
         <SidebarNav
           className={classes.nav}
           pages={pages}
         />
-        <UpgradePlan />
       </div>
     </Drawer>
   );

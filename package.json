@@ -1,9 +1,12 @@
 {
-  "name": "GMD react-material-dashboard",
+  "name": "gmd-react-material-dashboard",
   "author": "Matteo Kinkela",
   "licence": "MIT",
   "version": "1.0.0",
   "private": false,
+  "repository": "https://github.com/mkinkela1/GMD-react-material-dashboard.git",
+  "license": "MIT",
+  "description": "React material dashboard for my dad's company",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -50,5 +53,10 @@
     "cz-conventional-changelog": "^3.2.0",
     "prettier": "^1.17.1",
     "typescript": "^3.5.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
