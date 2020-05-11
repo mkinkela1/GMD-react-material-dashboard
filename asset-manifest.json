@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/GMD-react-material-dashboard/static/css/main.fec45a73.chunk.css",
-    "main.js": "/GMD-react-material-dashboard/static/js/main.fb0f4b43.chunk.js",
-    "main.js.map": "/GMD-react-material-dashboard/static/js/main.fb0f4b43.chunk.js.map",
+    "main.js": "/GMD-react-material-dashboard/static/js/main.6e80613a.chunk.js",
+    "main.js.map": "/GMD-react-material-dashboard/static/js/main.6e80613a.chunk.js.map",
     "runtime-main.js": "/GMD-react-material-dashboard/static/js/runtime-main.792c050d.js",
     "runtime-main.js.map": "/GMD-react-material-dashboard/static/js/runtime-main.792c050d.js.map",
     "static/css/2.18fb2ca0.chunk.css": "/GMD-react-material-dashboard/static/css/2.18fb2ca0.chunk.css",
-    "static/js/2.1571984c.chunk.js": "/GMD-react-material-dashboard/static/js/2.1571984c.chunk.js",
-    "static/js/2.1571984c.chunk.js.map": "/GMD-react-material-dashboard/static/js/2.1571984c.chunk.js.map",
+    "static/js/2.a1f1ddd9.chunk.js": "/GMD-react-material-dashboard/static/js/2.a1f1ddd9.chunk.js",
+    "static/js/2.a1f1ddd9.chunk.js.map": "/GMD-react-material-dashboard/static/js/2.a1f1ddd9.chunk.js.map",
     "index.html": "/GMD-react-material-dashboard/index.html",
-    "precache-manifest.bf4306cda3903888510c11a35113c266.js": "/GMD-react-material-dashboard/precache-manifest.bf4306cda3903888510c11a35113c266.js",
+    "precache-manifest.2f1e66f02c87cb5b1a09cc87a2f32237.js": "/GMD-react-material-dashboard/precache-manifest.2f1e66f02c87cb5b1a09cc87a2f32237.js",
     "service-worker.js": "/GMD-react-material-dashboard/service-worker.js",
     "static/css/2.18fb2ca0.chunk.css.map": "/GMD-react-material-dashboard/static/css/2.18fb2ca0.chunk.css.map",
     "static/css/main.fec45a73.chunk.css.map": "/GMD-react-material-dashboard/static/css/main.fec45a73.chunk.css.map",
-    "static/js/2.1571984c.chunk.js.LICENSE.txt": "/GMD-react-material-dashboard/static/js/2.1571984c.chunk.js.LICENSE.txt"
+    "static/js/2.a1f1ddd9.chunk.js.LICENSE.txt": "/GMD-react-material-dashboard/static/js/2.a1f1ddd9.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.792c050d.js",
     "static/css/2.18fb2ca0.chunk.css",
-    "static/js/2.1571984c.chunk.js",
+    "static/js/2.a1f1ddd9.chunk.js",
     "static/css/main.fec45a73.chunk.css",
-    "static/js/main.fb0f4b43.chunk.js"
+    "static/js/main.6e80613a.chunk.js"
   ]
 }
