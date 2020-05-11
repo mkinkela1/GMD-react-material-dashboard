@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {forwardRef} from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 
 import { SearchInput } from 'components';
+import {NavLink as RouterLink} from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -28,6 +29,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const CustomRouterLink = forwardRef((props, ref) => (
+  <div
+    ref={ref}
+    style={{ float: 'right' }}
+  >
+    <RouterLink {...props} />
+  </div>
+));
+
 const OffersToolbar = props => {
   const { className, ...rest } = props;
 
@@ -42,6 +52,8 @@ const OffersToolbar = props => {
         <span className={classes.spacer} />
         <Button
           color="primary"
+          component={CustomRouterLink}
+          to={'/offer/create'}
           variant="contained"
         >
           Dodaj novu ponudu

@@ -14,7 +14,8 @@ import {
   Settings as SettingsView,
   SignIn as SignInView,
   NotFound as NotFoundView,
-  Offer as OfferView
+  Offer as OfferView,
+  CreateOffer as CreateOfferView
 } from './views';
 
 const Routes = () => {
@@ -84,6 +85,12 @@ const Routes = () => {
         exact
         layout={MinimalLayout}
         path="/not-found"
+      />
+      <RouteWithLayout
+        component={CreateOfferView}
+        exact
+        layout={MainLayout}
+        path="/offer/create"
       />
       <Redirect to="/not-found" />
     </Switch>
