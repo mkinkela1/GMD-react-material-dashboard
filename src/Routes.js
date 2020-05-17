@@ -1,7 +1,6 @@
 import React from 'react';
 import {Switch, Redirect} from 'react-router-dom';
 
-import { RouteWithLayout } from './components';
 import { Main as MainLayout, Minimal as MinimalLayout } from './layouts';
 
 import {
@@ -17,6 +16,7 @@ import {
   Offer as OfferView,
   CreateOffer as CreateOfferView
 } from './views';
+import RouteWithLayout from './components/RouteWithLayout';
 
 const Routes = () => {
   return (
@@ -31,48 +31,56 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/dashboard"
+        privateRoute
       />
       <RouteWithLayout
         component={OfferView}
         exact
         layout={MainLayout}
         path="/offer"
+        privateRoute
       />
       <RouteWithLayout
         component={UserListView}
         exact
         layout={MainLayout}
         path="/users"
+        privateRoute
       />
       <RouteWithLayout
         component={ProductListView}
         exact
         layout={MainLayout}
         path="/products"
+        privateRoute
       />
       <RouteWithLayout
         component={TypographyView}
         exact
         layout={MainLayout}
         path="/typography"
+        privateRoute
       />
       <RouteWithLayout
         component={IconsView}
         exact
         layout={MainLayout}
         path="/icons"
+        privateRoute
       />
       <RouteWithLayout
         component={AccountView}
         exact
         layout={MainLayout}
         path="/account"
+        privateRoute
       />
       <RouteWithLayout
         component={SettingsView}
         exact
         layout={MainLayout}
         path="/settings"
+        privateRoute
       />
       <RouteWithLayout
         component={SignInView}
@@ -85,12 +93,14 @@ const Routes = () => {
         exact
         layout={MinimalLayout}
         path="/not-found"
+        privateRoute
       />
       <RouteWithLayout
         component={CreateOfferView}
         exact
         layout={MainLayout}
         path="/offer/create"
+        privateRoute
       />
       <Redirect to="/not-found" />
     </Switch>
