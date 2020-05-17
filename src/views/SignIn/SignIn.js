@@ -9,6 +9,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import login from "../../helpers/login";
 
 const schema = {
   email: {
@@ -149,10 +150,7 @@ const SignIn = props => {
       ...formState,
       values: {
         ...formState.values,
-        [event.target.name]:
-          event.target.type === 'checkbox'
-            ? event.target.checked
-            : event.target.value
+        [event.target.name]: event.target.value
       },
       touched: {
         ...formState.touched,
@@ -163,11 +161,22 @@ const SignIn = props => {
 
   const handleSignIn = event => {
     event.preventDefault();
-    history.push('/');
+
+    const { email, password } = formState.values;
+
+    login(
+      email,
+      password,
+      () => history.push('/'),
+      (error) => setFormState(formState => ({
+        ...formState,
+        error
+      }))
+    );
+
   };
 
-  const hasError = field =>
-    formState.touched[field] && formState.errors[field] ? true : false;
+  const hasError = field => formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <div className={classes.root}>
@@ -241,14 +250,10 @@ const SignIn = props => {
                   size="large"
                   type="submit"
                   variant="contained"
+
                 >
                   Prijava
                 </Button>
-                <Typography
-                  color="textSecondary"
-                  variant="body1"
-                >
-                </Typography>
               </form>
             </div>
           </div>
