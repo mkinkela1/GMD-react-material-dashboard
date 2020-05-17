@@ -1,26 +1,61 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import {Redirect, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {getIsAuthenticated} from '../../store/reducers/AuthReducer';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import setAuth from '../../store/setters/SetAuth';
 
 const RouteWithLayout = props => {
-  const { layout: Layout, component: Component, ...rest } = props;
 
-  return (
-    <Route
-      {...rest}
-      render={matchProps => (
-        <Layout>
-          <Component {...matchProps} />
-        </Layout>
-      )}
-    />
-  );
+  const { layout: Layout, component: Component, privateRoute, ...rest } = props;
+  console.log(props);
+  if(privateRoute) {
+    if(props.isAuthenticated)
+      return (
+        <Route
+          {...rest}
+          render={matchProps => (
+            <Layout>
+              <Component {...matchProps} />
+            </Layout>
+          )}
+        />
+      );
+    else
+      return (
+        <Redirect to="/sign-in" />
+      );
+  }
+
+  else {
+    return (
+      <Route
+        {...rest}
+        render={matchProps => (
+          <Layout>
+            <Component {...matchProps} />
+          </Layout>
+        )}
+      />
+    );
+  }
 };
 
 RouteWithLayout.propTypes = {
   component: PropTypes.any.isRequired,
   layout: PropTypes.any.isRequired,
-  path: PropTypes.string
+  path: PropTypes.string,
+  privateRoute: PropTypes.bool
 };
 
-export default RouteWithLayout;
+const mapStateToProps = (state) => ({
+  isAuthenticated: getIsAuthenticated(state)
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  authentication: setAuth
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RouteWithLayout);
+

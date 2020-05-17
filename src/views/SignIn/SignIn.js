@@ -9,7 +9,9 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
-import login from "../../helpers/login";
+import login from '../../helpers/login';
+import store from "../../store";
+import auth from "../../store/actions/AuthAction";
 
 const schema = {
   email: {
@@ -167,7 +169,7 @@ const SignIn = props => {
     login(
       email,
       password,
-      () => history.push('/'),
+      () => { store.dispatch(auth(true)); history.push('/dashboard') },
       (error) => setFormState(formState => ({
         ...formState,
         error

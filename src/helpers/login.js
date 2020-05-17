@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 import config from '../config';
+import store from '../store/index';
+import auth from '../store/actions/AuthAction';
 
 export default function login(email, password, onSuccess, onError) {
 
@@ -15,6 +17,8 @@ export default function login(email, password, onSuccess, onError) {
 
       localStorage.setItem('TOKEN', data.token.token);
       localStorage.setItem('REFRESH_TOKEN', data.token.refreshToken);
+
+      store.dispatch(auth(true));
 
       onSuccess();
     })
