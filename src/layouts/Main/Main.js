@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Main = props => {
+
   const { children } = props;
 
   const classes = useStyles();

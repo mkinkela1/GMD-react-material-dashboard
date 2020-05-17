@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundImage: 'url(/images/signin/background.jpg)',
+    backgroundImage: `url(${process.env.PUBLIC_URL}/images/login/background.jpg)`,
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center'

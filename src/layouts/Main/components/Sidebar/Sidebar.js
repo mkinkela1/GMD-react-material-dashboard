@@ -50,7 +50,7 @@ const Sidebar = props => {
       icon: <DashboardIcon />
     },
     {
-      title: 'Ponuda',
+      title: 'Ponude',
       href: '/offer',
       icon: <LocalOfferIcon />
     },
