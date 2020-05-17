@@ -10,8 +10,8 @@ import {
   Typography
 } from '@material-ui/core';
 import login from '../../helpers/login';
-import store from "../../store";
-import auth from "../../store/actions/AuthAction";
+import store from '../../store';
+import auth from '../../store/actions/AuthAction';
 
 const schema = {
   email: {

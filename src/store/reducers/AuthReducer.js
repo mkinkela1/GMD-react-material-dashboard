@@ -1,4 +1,4 @@
-import { AUTH } from '../constants/AuthConstants';
+import { AUTH } from '../../constants/AuthConstants';
 
 const initialState = {
   isAuthenticated: false

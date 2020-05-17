@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from '../config';
 import store from '../store/index';
 import auth from '../store/actions/AuthAction';
+import {REFRESH_TOKEN, TOKEN} from "../constants/AuthConstants";
 
 export default function login(email, password, onSuccess, onError) {
 
@@ -15,8 +16,8 @@ export default function login(email, password, onSuccess, onError) {
       if(data.err)
         throw data;
 
-      localStorage.setItem('TOKEN', data.token.token);
-      localStorage.setItem('REFRESH_TOKEN', data.token.refreshToken);
+      localStorage.setItem(TOKEN, data.token.token);
+      localStorage.setItem(REFRESH_TOKEN, data.token.refreshToken);
 
       store.dispatch(auth(true));
 
