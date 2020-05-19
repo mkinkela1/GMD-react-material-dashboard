@@ -7,10 +7,15 @@ import { AppBar, Toolbar, Badge, Hidden, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
+import logout from '../../../../helpers/logout';
 
 const useStyles = makeStyles(theme => ({
   root: {
     boxShadow: 'none'
+  },
+  logo: {
+    width: '175px',
+    height: '45px'
   },
   flexGrow: {
     flexGrow: 1
@@ -35,8 +40,9 @@ const Topbar = props => {
       <Toolbar>
         <RouterLink to="/">
           <img
+            className={classes.logo}
             alt="Logo"
-            src="/images/logos/logo--white.svg"
+            src={`${process.env.PUBLIC_URL}/images/logos/logo.png`}
           />
         </RouterLink>
         <div className={classes.flexGrow} />
@@ -53,6 +59,7 @@ const Topbar = props => {
           <IconButton
             className={classes.signOutButton}
             color="inherit"
+            onClick={logout}
           >
             <InputIcon />
           </IconButton>
