@@ -1,13 +1,10 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Redirect, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {getIsAuthenticated} from '../../store/reducers/AuthReducer';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import setAuth from '../../store/setters/SetAuth';
-import {TOKEN} from '../../constants/AuthConstants';
-import store from '../../store';
-import auth from '../../store/actions/AuthAction';
 
 const RouteWithLayout = props => {
 
