@@ -6,11 +6,12 @@ import {
   Grid,
   TextField,
   Typography,
+  Button,
   Table,
-  TableBody,
-  TableCell,
   TableHead,
-  TableRow, Button
+  TableRow,
+  TableBody,
+  TableCell
 } from '@material-ui/core';
 
 import DateFnsUtils from '@date-io/date-fns';
@@ -19,7 +20,7 @@ import {
   MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import {ItemsTable} from './components';
-import Modal from "@material-ui/core/Modal";
+import Modal from '@material-ui/core/Modal';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -68,24 +69,88 @@ const useStyles = makeStyles(theme => ({
 
 const CreateOffer = () => {
 
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [items, setItems] = useState([{
+  const [offer, setOffer] = useState({
+    documentName: 'PONUDA',
+    documentNumber: '',
+    documentDate: Date.now(),
+    boatModel: '',
+    masterCitizenNumber: '',
+    fullName: '',
+    address: '',
+    phoneNumber: '',
+    email: '',
+    validTill: Date.now(),
+    paymentType: '',
+    items: []
+  });
+  const [item, setItem] = useState({
     id: 1,
-    productName: 'Zimska tenda',
-    quantity: 1,
-    unit: 'kom',
-    unitPriceBeforeDiscount: 2900,
+    productName: '',
+    quantity: 0,
+    unit: '',
+    unitPriceBeforeDiscount: 0,
     discount: 0,
-    unitPriceWithDiscount: 2900,
-    vat: 725,
-    amount: 3625
-  }]);
+    unitPriceWithDiscount: 0,
+    amount: 0
+  });
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
 
   const handleOpen = () => { setOpen(true); };
   const handleClose = () => { setOpen(false); };
+
+  const handleModalData = (e) => {
+
+    const { name, value } = e.target;
+
+    setItem( prevItem => ({ ...prevItem, [name]: value}) );
+  }
+
+  const handleChange = (e) => {
+
+    const { name, value } = e.target;
+
+    setOffer( prevOffer => ({ ...prevOffer, [name]: value }) );
+  };
+
+  const resetItem = () => {
+    setItem({
+      id: 1,
+      productName: '',
+      quantity: 0,
+      unit: '',
+      unitPriceBeforeDiscount: 0,
+      discount: 0,
+      unitPriceWithDiscount: 0,
+      amount: 0
+    });
+  };
+
+  const addItem = () => {
+
+    let tmpItem = item;
+
+    tmpItem.quantity = parseInt(tmpItem.quantity);
+    tmpItem.unitPriceBeforeDiscount = parseInt(tmpItem.unitPriceBeforeDiscount);
+    tmpItem.discount = parseInt(tmpItem.discount);
+
+    tmpItem.unitPriceWithDiscount = tmpItem.unitPriceBeforeDiscount * (1 - tmpItem.discount/100);
+    tmpItem.amount = tmpItem.unitPriceWithDiscount * tmpItem.quantity;
+
+    console.log(tmpItem);
+
+    setOffer( prevOffer => ({ ...prevOffer, items: [...prevOffer.items, tmpItem] }) );
+    resetItem();
+  };
+
+  const handleDateChange = (name, value) => {
+    setOffer( prevOffer => ({ ...prevOffer, [name]: value }) );
+  }
+
+  const handleSave = () => {
+    console.log('saved');
+  };
 
   return (
     <div className={classes.root}>
@@ -97,7 +162,7 @@ const CreateOffer = () => {
                 <Grid item>
                   <Typography className={classes.title} color="textSecondary" variant="body2">Naziv dokumenta</Typography>
                   <Typography variant="h3" className={classes.documentName}>
-                    <TextField fullWidth name="documentNumber" disabled value={'PONUDA'}/>
+                    <TextField fullWidth name="documentName" disabled value={offer.documentName}/>
                   </Typography>
                 </Grid>
 
@@ -112,7 +177,7 @@ const CreateOffer = () => {
                 <Grid item>
                   <Typography className={classes.title} color="textSecondary" variant="body2">Broj dokumenta</Typography>
                   <Typography variant="h3" className={classes.documentName}>
-                    <TextField fullWidth name="documentNumber" placeholder='Broj dokumenta'/>
+                    <TextField fullWidth name="documentNumber" placeholder='Broj dokumenta' value={offer.documentNumber} onChange={(e) => handleChange(e)}/>
                   </Typography>
                 </Grid>
 
@@ -128,7 +193,7 @@ const CreateOffer = () => {
                   <Typography className={classes.title} color="textSecondary"  variant="body2" >Datum dokumenta</Typography>
                   <Typography variant="h3" className={classes.documentName}>
                     <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                      <DatePicker value={selectedDate} onChange={handleDateChange} />
+                      <DatePicker value={offer.documentDate} onChange={(e) => handleDateChange('documentDate', e)} />
                     </MuiPickersUtilsProvider>
                   </Typography>
                 </Grid>
@@ -145,7 +210,7 @@ const CreateOffer = () => {
 
                   <Typography className={classes.title} color="textSecondary" variant="body2">Model broda</Typography>
                   <Typography variant="h3" className={classes.documentName}>
-                    <TextField fullWidth name="boatModel" placeholder='Model broda'/>
+                    <TextField fullWidth name="boatModel" placeholder='Model broda' value={offer.boatModel} onChange={(e) => handleChange(e)}/>
                   </Typography>
 
                 </Grid>
@@ -165,10 +230,11 @@ const CreateOffer = () => {
               </Grid>
               <Grid container spacing={3}>
                 <Grid item md={12} xs={12}>
-                  <TextField fullWidth label="Ime i prezime" margin="dense" name="fullName"/>
-                  <TextField fullWidth label="Adresa" margin="dense" name="address"/>
-                  <TextField fullWidth label="Telefon" margin="dense" name="phoneNumber"/>
-                  <TextField fullWidth label="E-mail" margin="dense" name="email"/>
+                  <TextField fullWidth label="Ime i prezime" margin="dense" name="fullName" value={offer.fullName} onChange={(e) => handleChange(e)}/>
+                  <TextField fullWidth label="Adresa" margin="dense" name="address" value={offer.address} onChange={(e) => handleChange(e)}/>
+                  <TextField fullWidth label="Telefon" margin="dense" name="phoneNumber" value={offer.phoneNumber} onChange={(e) => handleChange(e)}/>
+                  <TextField fullWidth label="E-mail" margin="dense" name="email" value={offer.email} onChange={(e) => handleChange(e)}/>
+                  <TextField fullWidth label="OIB" margin="dense" name="masterCitizenNumber" value={offer.masterCitizenNumber} onChange={(e) => handleChange(e)}/>
                 </Grid>
               </Grid>
             </CardContent>
@@ -184,13 +250,13 @@ const CreateOffer = () => {
                 <Grid item lg={12} md={12} xl={12} xs={12}>
                   <Typography className={classes.title} color="textSecondary" variant="body2">Vrijedi do</Typography>
                   <MuiPickersUtilsProvider utils={DateFnsUtils} >
-                    <DatePicker value={selectedDate} onChange={handleDateChange} />
+                    <DatePicker value={offer.validTill} onChange={(e) => handleDateChange('validTill', e)} />
                   </MuiPickersUtilsProvider>
                 </Grid>
                 <Grid item lg={12} md={12} xl={12} xs={12}>
                   <Typography className={classes.title} color="textSecondary" variant="body2">Način plaćanja</Typography>
                   <Typography variant="h3" className={classes.documentName}>
-                    <TextField fullWidth name="paymentType" placeholder='Način plaćanja'/>
+                    <TextField fullWidth name="paymentType" placeholder='Način plaćanja' value={offer.paymentType} onChange={(e) => handleChange(e)}/>
                   </Typography>
                 </Grid>
               </Grid>
@@ -209,19 +275,19 @@ const CreateOffer = () => {
               <div className={classes.paper}>
                 <h2 id="simple-modal-title">Kreiraj novi zapis</h2>
                 <p id="simple-modal-description">
-                  <TextField fullWidth label="Naziv/Opis" margin="dense" name="productName"/>
-                  <TextField fullWidth label="Količina" margin="dense" name="quantity"/>
-                  <TextField fullWidth label="Jedinica mjere" margin="dense" name="unit"/>
-                  <TextField fullWidth label="Cijena bez rabata" margin="dense" name="unitPriceBeforeDiscount"/>
-                  <TextField fullWidth label="Rabat" margin="dense" name="discount"/>
-                  <Button color="primary" variant="contained" type="button" onClick={handleOpen}>Dodaj</Button>
-                  <Button color="#f44336" type="button" onClick={handleOpen}>Izbriši</Button>
+                  <TextField fullWidth label="Naziv/Opis" margin="dense" name="productName" onChange={(e) => handleModalData(e)} value={item.productName}/>
+                  <TextField fullWidth label="Količina" margin="dense" name="quantity" onChange={(e) => handleModalData(e)} value={+item.quantity}/>
+                  <TextField fullWidth label="Jedinica mjere" margin="dense" name="unit" onChange={(e) => handleModalData(e)} value={item.unit}/>
+                  <TextField fullWidth label="Cijena bez rabata" margin="dense" name="unitPriceBeforeDiscount" onChange={(e) => handleModalData(e)} value={+item.unitPriceBeforeDiscount}/>
+                  <TextField fullWidth label="Rabat" margin="dense" name="discount" onChange={(e) => handleModalData(e)} value={+item.discount}/>
+                  <Button color="primary" variant="contained" type="button" onClick={() => { addItem(); handleClose(); }}>Dodaj</Button>
+                  <Button color="#f44336" type="button" onClick={() => { resetItem(); handleClose(); }}>Izbriši</Button>
                 </p>
               </div>
             </Modal>
           </div>
 
-          <ItemsTable items={items} />
+          <ItemsTable items={offer.items} />
         </Grid>
       </Grid>
 
@@ -244,34 +310,25 @@ const CreateOffer = () => {
               <TableBody>
                 <TableRow>
                   <TableCell>Iznos bez rabata</TableCell>
-                  <TableCell>{items.map(item => item.unitPriceBeforeDiscount).reduce((acc, curr) => ( acc+ curr )).toFixed(2)}</TableCell>
+                  <TableCell>{offer.items.map(item => item.unitPriceBeforeDiscount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}</TableCell>
                   <TableCell>HRK</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>Iznos rabata</TableCell>
-                  <TableCell>{items.map(item => item.discount).reduce((acc, curr) => ( acc+ curr )).toFixed(2)}</TableCell>
-                  <TableCell>HRK</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>IZNOS BEZ POREZA</TableCell>
-                  <TableCell>{items.map(item => item.unitPriceWithDiscount).reduce((acc, curr) => ( acc+ curr )).toFixed(2)}</TableCell>
-                  <TableCell>HRK</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>PDV</TableCell>
-                  <TableCell>{items.map(item => item.vat).reduce((acc, curr) => ( acc+ curr )).toFixed(2)}</TableCell>
+                  <TableCell>{offer.items.map(item => item.discount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}</TableCell>
                   <TableCell>HRK</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>SVEUKUPNO</TableCell>
-                  <TableCell>{items.map(item => item.amount).reduce((acc, curr) => ( acc+ curr )).toFixed(2)}</TableCell>
+                  <TableCell>{offer.items.map(item => item.amount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}</TableCell>
                   <TableCell>HRK</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
 
           </Card>
-
+          <span className={classes.spacer} />
+          <Button color="primary" variant="contained" type="button" onClick={handleSave}>Spremi i generiraj PDF</Button>
         </Grid>
       </Grid>
     </div>

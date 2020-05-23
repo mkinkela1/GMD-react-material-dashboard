@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardActions,
   CardContent,
-  Avatar,
   Checkbox,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableRow,
-  Typography,
   TablePagination
 } from '@material-ui/core';
-
-import { getInitials } from 'helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -121,7 +116,6 @@ const ItemsTable = props => {
                   <TableCell>Cijena bez rabata</TableCell>
                   <TableCell>Rabat</TableCell>
                   <TableCell>Jed. cijena (sa rabatom)</TableCell>
-                  <TableCell>PDV</TableCell>
                   <TableCell>Iznos</TableCell>
                 </TableRow>
               </TableHead>
@@ -148,8 +142,7 @@ const ItemsTable = props => {
                     <TableCell>{item.unit}</TableCell>
                     <TableCell>{item.unitPriceBeforeDiscount.toFixed(2)}</TableCell>
                     <TableCell>{item.discount.toFixed(2)}</TableCell>
-                    <TableCell>{item.unitPriceBeforeDiscount.toFixed(2)}</TableCell>
-                    <TableCell>{item.vat.toFixed(2)}</TableCell>
+                    <TableCell>{item.unitPriceWithDiscount.toFixed(2)}</TableCell>
                     <TableCell>{item.amount.toFixed(2)}</TableCell>
 
                   </TableRow>
