@@ -37,6 +37,7 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/pickers": "^3.2.10",
     "@material-ui/styles": "^4.2.1",
+    "@react-pdf/renderer": "^1.6.9",
     "axios": "^0.19.2",
     "chart.js": "^2.8.0",
     "clsx": "^1.0.4",

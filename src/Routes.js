@@ -14,7 +14,8 @@ import {
   SignIn as SignInView,
   NotFound as NotFoundView,
   Offer as OfferView,
-  CreateOffer as CreateOfferView
+  CreateOffer as CreateOfferView,
+  GeneratePDF as GeneratePDFView
 } from './views';
 import RouteWithLayout from './components/RouteWithLayout';
 
@@ -100,6 +101,13 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/offer/create"
+        privateRoute
+      />
+      <RouteWithLayout
+        component={GeneratePDFView}
+        exact
+        layout={MainLayout}
+        path="/offer/pdf"
         privateRoute
       />
       <Redirect to="/not-found" />

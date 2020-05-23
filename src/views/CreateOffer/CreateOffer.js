@@ -13,6 +13,7 @@ import {
   TableBody,
   TableCell
 } from '@material-ui/core';
+import { withRouter } from 'react-router';
 
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -67,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CreateOffer = () => {
+const CreateOffer = (props) => {
 
   const [offer, setOffer] = useState({
     documentName: 'PONUDA',
@@ -149,7 +150,8 @@ const CreateOffer = () => {
   }
 
   const handleSave = () => {
-    console.log('saved');
+
+    props.history.push('/offer/pdf');
   };
 
   return (
@@ -274,15 +276,15 @@ const CreateOffer = () => {
             <Modal open={open} onClose={handleClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
               <div className={classes.paper}>
                 <h2 id="simple-modal-title">Kreiraj novi zapis</h2>
-                <p id="simple-modal-description">
+                <div id="simple-modal-description">
                   <TextField fullWidth label="Naziv/Opis" margin="dense" name="productName" onChange={(e) => handleModalData(e)} value={item.productName}/>
                   <TextField fullWidth label="Količina" margin="dense" name="quantity" onChange={(e) => handleModalData(e)} value={+item.quantity}/>
                   <TextField fullWidth label="Jedinica mjere" margin="dense" name="unit" onChange={(e) => handleModalData(e)} value={item.unit}/>
                   <TextField fullWidth label="Cijena bez rabata" margin="dense" name="unitPriceBeforeDiscount" onChange={(e) => handleModalData(e)} value={+item.unitPriceBeforeDiscount}/>
                   <TextField fullWidth label="Rabat" margin="dense" name="discount" onChange={(e) => handleModalData(e)} value={+item.discount}/>
                   <Button color="primary" variant="contained" type="button" onClick={() => { addItem(); handleClose(); }}>Dodaj</Button>
-                  <Button color="#f44336" type="button" onClick={() => { resetItem(); handleClose(); }}>Izbriši</Button>
-                </p>
+                  <Button color="inherit" type="button" onClick={() => { resetItem(); handleClose(); }}>Izbriši</Button>
+                </div>
               </div>
             </Modal>
           </div>
@@ -327,12 +329,14 @@ const CreateOffer = () => {
             </Table>
 
           </Card>
-          <span className={classes.spacer} />
-          <Button color="primary" variant="contained" type="button" onClick={handleSave}>Spremi i generiraj PDF</Button>
+          <div className={classes.row} style={{paddingTop: '10px'}}>
+            <span className={classes.spacer} />
+            <Button color="primary" variant="contained" type="button" onClick={handleSave}>Spremi i generiraj PDF</Button>
+          </div>
         </Grid>
       </Grid>
     </div>
   );
 };
 
-export default CreateOffer;
+export default withRouter(CreateOffer);
