@@ -38,8 +38,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OffersList = props => {
-  const { className, offers, ...rest } = props;
 
+  const { className, offers, ...rest } = props;
+  console.log(offers);
   const classes = useStyles();
 
   const [selectedOffers, setSelectedOffers] = useState([]);
@@ -120,7 +121,7 @@ const OffersList = props => {
                   <TableRow
                     className={classes.tableRow}
                     hover
-                    key={offer.id}
+                    key={offer._id}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
@@ -130,8 +131,8 @@ const OffersList = props => {
                         value="true"
                       />
                     </TableCell>
-                    <TableCell>{offer.id}</TableCell>
-                    <TableCell>{offer.name}</TableCell>
+                    <TableCell>{offer.documentNumber}</TableCell>
+                    <TableCell>{offer.documentName}</TableCell>
                     <TableCell>{moment(offer.createdAt).format('DD/MM/YYYY')}</TableCell>
                   </TableRow>
                 ))}

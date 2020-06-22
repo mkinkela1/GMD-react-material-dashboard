@@ -3,7 +3,7 @@ import axios from 'axios';
 import config from '../config';
 import store from '../store/index';
 import auth from '../store/actions/AuthAction';
-import {REFRESH_TOKEN, TOKEN} from "../constants/AuthConstants";
+import {REFRESH_TOKEN, TOKEN} from '../constants/AuthConstants';
 
 export default function login(email, password, onSuccess, onError) {
 

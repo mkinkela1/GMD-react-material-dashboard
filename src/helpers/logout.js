@@ -20,8 +20,6 @@ export default function logout() {
 
       localStorage.removeItem(TOKEN);
       localStorage.removeItem(REFRESH_TOKEN);
-
-      store.dispatch(auth(true));
     })
     .catch(e => console.log(e));
 }

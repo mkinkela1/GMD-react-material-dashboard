@@ -22,6 +22,8 @@ import {
 } from '@material-ui/pickers';
 import {ItemsTable} from './components';
 import Modal from '@material-ui/core/Modal';
+import axios from './../../helpers/inderceptors';
+import config from '../../config';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -151,7 +153,13 @@ const CreateOffer = (props) => {
 
   const handleSave = () => {
 
-    props.history.push('/offer/pdf');
+    axios
+      .post(`${config.apiUrl}/offer`, offer)
+      .then(r => props.history.push({
+        pathname: '/offer/pdf',
+        state: { offer: r.data }
+      }))
+      .catch(e => console.log(e));
   };
 
   return (
