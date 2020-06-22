@@ -14,8 +14,10 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TablePagination
+  TablePagination, Button
 } from '@material-ui/core';
+import {Create, Delete} from '@material-ui/icons';
+import { withRouter } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -34,11 +36,21 @@ const useStyles = makeStyles(theme => ({
   },
   actions: {
     justifyContent: 'flex-end'
+  },
+  button: {
+    all: 'unset',
+    color: theme.palette.icon,
+    '&:hover': {
+      all: 'unset',
+      cursor: 'pointer',
+      color: theme.palette.secondary.light
+    }
   }
 }));
 
 const OffersList = props => {
-  const { className, offers, ...rest } = props;
+
+  const { className, offers, removeOffers, ...rest } = props;
 
   const classes = useStyles();
 
@@ -88,6 +100,12 @@ const OffersList = props => {
     setRowsPerPage(event.target.value);
   };
 
+  const handleEdit = (id) => {
+    props.history.push(`/offer/edit/${id}`);
+  }
+
+  const handleDeleteSingle = (id) => removeOffers([id]);
+
   return (
     <Card
       {...rest}
@@ -113,6 +131,7 @@ const OffersList = props => {
                   <TableCell>ID</TableCell>
                   <TableCell>Naziv</TableCell>
                   <TableCell>Datum izrade</TableCell>
+                  <TableCell>Akcije</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -120,19 +139,23 @@ const OffersList = props => {
                   <TableRow
                     className={classes.tableRow}
                     hover
-                    key={offer.id}
+                    key={offer._id}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
-                        checked={selectedOffers.indexOf(offer.id) !== -1}
+                        checked={selectedOffers.indexOf(offer._id) !== -1}
                         color="primary"
                         onChange={event => handleSelectOne(event, offer.id)}
                         value="true"
                       />
                     </TableCell>
-                    <TableCell>{offer.id}</TableCell>
-                    <TableCell>{offer.name}</TableCell>
+                    <TableCell>{offer.documentNumber}</TableCell>
+                    <TableCell>{offer.documentName}</TableCell>
                     <TableCell>{moment(offer.createdAt).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>
+                      <Button className={classes.button} onClick={() => handleEdit(offer._id)}><Create /></Button>
+                      <Button className={classes.button} onClick={() => handleDeleteSingle(offer._id)}><Delete /></Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
@@ -160,4 +183,4 @@ OffersList.propTypes = {
   offers: PropTypes.array.isRequired
 };
 
-export default OffersList;
+export default withRouter(OffersList);
