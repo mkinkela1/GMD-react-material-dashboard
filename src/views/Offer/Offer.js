@@ -27,11 +27,22 @@ const UserList = () => {
 
   }, []);
 
+  const removeOffers = ids => {
+
+    setOffers(prevOffers => prevOffers.filter(({_id}) => !ids.includes(_id)));
+
+    ids.forEach(id => {
+      axios
+        .delete(`${config.apiUrl}/offer/${id}`)
+        .catch(e => console.log(e));
+    })
+  }
+
   return (
     <div className={classes.root}>
       <OffersToolbar />
       <div className={classes.content}>
-        <OffersList offers={offers} />
+        <OffersList offers={offers} removeOffers={removeOffers} />
       </div>
     </div>
   );

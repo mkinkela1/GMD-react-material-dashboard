@@ -173,7 +173,7 @@ const GeneratePDF = (props) => {
               <Text style={styles.documentInfoHeaderBold}>Broj dokumenta</Text>
               <Text style={styles.documentInfoHeader}>Document No.</Text>
               <View style={styles.spacer}/>
-              <Text style={styles.title}>{offer.documentName}</Text>
+              <Text style={styles.title}>{offer.documentNumber}</Text>
             </View>
             <View style={styles.row.item}>
               <Text style={styles.documentInfoHeaderBold}>Datum dokumenta</Text>
@@ -256,18 +256,18 @@ const GeneratePDF = (props) => {
             <Table data={items}>
               <TableBody
                 includeBottomBorder
-                includeLeftBorder
-                includeRightBorder
+                includeLeftBorder={false}
+                includeRightBorder={false}
                 includeTopBorder
               >
-                <DataTableCell weighting={0.3} getContent={r => r.id} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={1} getContent={r => r.productName} style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={0.3} getContent={r => r.quantity} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={0.3} getContent={r => r.unit} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPriceBeforeDiscount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.discount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPriceWithDiscount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.amount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10}} />
+                <DataTableCell weighting={0.3} getContent={r => r.id} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={1} getContent={r => r.productName} style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => r.quantity} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => r.unit} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPriceBeforeDiscount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => `${formatMoney(r.discount)} %`} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPriceWithDiscount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.amount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
               </TableBody>
             </Table>
           </View>
