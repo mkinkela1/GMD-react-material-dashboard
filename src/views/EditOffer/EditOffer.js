@@ -91,9 +91,7 @@ const EditOffer = (props) => {
     productName: '',
     quantity: 0,
     unit: '',
-    unitPriceBeforeDiscount: 0,
-    discount: 0,
-    unitPriceWithDiscount: 0,
+    unitPrice: 0,
     amount: 0
   });
 
@@ -134,9 +132,7 @@ const EditOffer = (props) => {
       productName: '',
       quantity: 0,
       unit: '',
-      unitPriceBeforeDiscount: 0,
-      discount: 0,
-      unitPriceWithDiscount: 0,
+      unitPrice: 0,
       amount: 0
     });
   };
@@ -146,13 +142,8 @@ const EditOffer = (props) => {
     let tmpItem = item;
 
     tmpItem.quantity = parseInt(tmpItem.quantity);
-    tmpItem.unitPriceBeforeDiscount = parseInt(tmpItem.unitPriceBeforeDiscount);
-    tmpItem.discount = parseInt(tmpItem.discount);
-
-    tmpItem.unitPriceWithDiscount = tmpItem.unitPriceBeforeDiscount * (1 - tmpItem.discount/100);
-    tmpItem.amount = tmpItem.unitPriceWithDiscount * tmpItem.quantity;
-
-    console.log(tmpItem);
+    tmpItem.unitPrice = parseInt(tmpItem.unitPrice);
+    tmpItem.amount = tmpItem.unitPrice * tmpItem.quantity;
 
     setOffer( prevOffer => ({ ...prevOffer, items: [...prevOffer.items, tmpItem] }) );
     resetItem();
@@ -174,7 +165,7 @@ const EditOffer = (props) => {
   };
 
   const handleRemoveItem = (removeId) => {
-    console.log(removeId);
+
     setOffer( prevOffer => {
       if(prevOffer.items.length === 1)
         return {...prevOffer, items: []};
@@ -309,8 +300,7 @@ const EditOffer = (props) => {
                   <TextField fullWidth label="Naziv/Opis" margin="dense" name="productName" onChange={(e) => handleModalData(e)} value={item.productName}/>
                   <TextField fullWidth label="Količina" margin="dense" name="quantity" onChange={(e) => handleModalData(e)} value={+item.quantity}/>
                   <TextField fullWidth label="Jedinica mjere" margin="dense" name="unit" onChange={(e) => handleModalData(e)} value={item.unit}/>
-                  <TextField fullWidth label="Cijena bez rabata" margin="dense" name="unitPriceBeforeDiscount" onChange={(e) => handleModalData(e)} value={+item.unitPriceBeforeDiscount}/>
-                  <TextField fullWidth label="Rabat" margin="dense" name="discount" onChange={(e) => handleModalData(e)} value={+item.discount}/>
+                  <TextField fullWidth label="Jedinična cijena" margin="dense" name="unitPrice" onChange={(e) => handleModalData(e)} value={+item.unitPrice}/>
                   <Button color="primary" variant="contained" type="button" onClick={() => { addItem(); handleClose(); }}>Dodaj</Button>
                   <Button color="inherit" type="button" onClick={() => { resetItem(); handleClose(); }}>Izbriši</Button>
                 </div>
@@ -339,16 +329,6 @@ const EditOffer = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell>Iznos bez rabata</TableCell>
-                  <TableCell>{offer.items.map(item => item.unitPriceBeforeDiscount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}</TableCell>
-                  <TableCell>HRK</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>Iznos rabata</TableCell>
-                  <TableCell>{offer.items.map(item => item.discount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}</TableCell>
-                  <TableCell>HRK</TableCell>
-                </TableRow>
                 <TableRow>
                   <TableCell>SVEUKUPNO</TableCell>
                   <TableCell>{offer.items.map(item => item.amount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}</TableCell>

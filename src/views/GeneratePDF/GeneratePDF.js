@@ -130,20 +130,6 @@ const GeneratePDF = (props) => {
   const sumUpEverything = [
     {
       title: {
-        hr: 'Iznos bez rabata',
-        eng: 'Amount without discount'
-      },
-      value: offer.items.map(item => item.unitPriceBeforeDiscount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)
-    },
-    {
-      title: {
-        hr: 'Iznos rabata',
-        eng: 'Discount'
-      },
-      value: offer.items.map(item => item.discount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)
-    },
-    {
-      title: {
         hr: 'Sveukupno',
         eng: 'Total amount'
       },
@@ -234,16 +220,8 @@ const GeneratePDF = (props) => {
                   <Text style={styles.documentInfoHeader}>Unit</Text>
                 </TableCell>
                 <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
-                  <Text style={styles.documentInfoHeaderBold}>Cijena bez rabata</Text>
-                  <Text style={styles.documentInfoHeader}>Unit price before discount</Text>
-                </TableCell>
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
-                  <Text style={styles.documentInfoHeaderBold}>Rabat</Text>
-                  <Text style={styles.documentInfoHeader}>Discount</Text>
-                </TableCell>
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
-                  <Text style={styles.documentInfoHeaderBold}>Jed. cijena (sa rabatom)</Text>
-                  <Text style={styles.documentInfoHeader}>Unit price with discount</Text>
+                  <Text style={styles.documentInfoHeaderBold}>Jedinična cijena</Text>
+                  <Text style={styles.documentInfoHeader}>Unit price</Text>
                 </TableCell>
                 <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
                   <Text style={styles.documentInfoHeaderBold}>Iznos</Text>
@@ -264,9 +242,7 @@ const GeneratePDF = (props) => {
                 <DataTableCell weighting={1} getContent={r => r.productName} style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
                 <DataTableCell weighting={0.3} getContent={r => r.quantity} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
                 <DataTableCell weighting={0.3} getContent={r => r.unit} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPriceBeforeDiscount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => `${formatMoney(r.discount)} %`} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPriceWithDiscount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPrice)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
                 <DataTableCell weighting={0.3} getContent={r => formatMoney(r.amount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
               </TableBody>
             </Table>
