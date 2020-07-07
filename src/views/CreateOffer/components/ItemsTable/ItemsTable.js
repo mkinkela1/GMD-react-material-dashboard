@@ -15,7 +15,7 @@ import {
   TableRow,
   TablePagination, Button
 } from '@material-ui/core';
-import {Delete} from "@material-ui/icons";
+import {Delete} from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -89,7 +89,6 @@ const ItemsTable = props => {
   };
 
   const handleDelete = () => {
-    console.log(selectedItems)
     selectedItems.forEach(id => removeItem(id))
   }
 
@@ -119,9 +118,7 @@ const ItemsTable = props => {
                   <TableCell>Naziv/Opis</TableCell>
                   <TableCell>Količina</TableCell>
                   <TableCell>Jedinica mjere</TableCell>
-                  <TableCell>Cijena bez rabata</TableCell>
-                  <TableCell>Rabat</TableCell>
-                  <TableCell>Jed. cijena (sa rabatom)</TableCell>
+                  <TableCell>Jedinična cijena</TableCell>
                   <TableCell>Iznos</TableCell>
                 </TableRow>
               </TableHead>
@@ -146,9 +143,7 @@ const ItemsTable = props => {
                     <TableCell>{item.productName}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.unit}</TableCell>
-                    <TableCell>{item.unitPriceBeforeDiscount.toFixed(2)}</TableCell>
-                    <TableCell>{item.discount.toFixed(2)}</TableCell>
-                    <TableCell>{item.unitPriceWithDiscount.toFixed(2)}</TableCell>
+                    <TableCell>{item.unitPrice.toFixed(2)}</TableCell>
                     <TableCell>{item.amount.toFixed(2)}</TableCell>
 
                   </TableRow>
