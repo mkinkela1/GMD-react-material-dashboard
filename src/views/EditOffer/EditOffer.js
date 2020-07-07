@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import {
   Card,
@@ -24,7 +24,6 @@ import {ItemsTable} from './components';
 import Modal from '@material-ui/core/Modal';
 import axios from './../../helpers/inderceptors';
 import config from '../../config';
-import {Delete} from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CreateOffer = (props) => {
+const EditOffer = (props) => {
 
   const [offer, setOffer] = useState({
     documentName: '',
@@ -97,6 +96,15 @@ const CreateOffer = (props) => {
     unitPriceWithDiscount: 0,
     amount: 0
   });
+
+  useEffect(() => {
+
+    axios(`${config.apiUrl}/offer/${props.match.params.id}`)
+      .then(r => setOffer(r.data))
+      .catch(e => console.log(e));
+
+  }, []);
+
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
@@ -135,14 +143,14 @@ const CreateOffer = (props) => {
 
     let tmpItem = item;
 
-    tmpItem.id = Math.random();
-
     tmpItem.quantity = parseInt(tmpItem.quantity);
     tmpItem.unitPriceBeforeDiscount = parseInt(tmpItem.unitPriceBeforeDiscount);
     tmpItem.discount = parseInt(tmpItem.discount);
 
     tmpItem.unitPriceWithDiscount = tmpItem.unitPriceBeforeDiscount * (1 - tmpItem.discount/100);
     tmpItem.amount = tmpItem.unitPriceWithDiscount * tmpItem.quantity;
+
+    console.log(tmpItem);
 
     setOffer( prevOffer => ({ ...prevOffer, items: [...prevOffer.items, tmpItem] }) );
     resetItem();
@@ -155,7 +163,7 @@ const CreateOffer = (props) => {
   const handleSave = () => {
 
     axios
-      .post(`${config.apiUrl}/offer`, offer)
+      .put(`${config.apiUrl}/offer/${props.match.params.id}`, offer)
       .then(r => props.history.push({
         pathname: '/offer/pdf',
         state: { offer: r.data }
@@ -358,4 +366,4 @@ const CreateOffer = (props) => {
   );
 };
 
-export default withRouter(CreateOffer);
+export default withRouter(EditOffer);
