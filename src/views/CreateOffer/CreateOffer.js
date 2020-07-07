@@ -24,7 +24,6 @@ import {ItemsTable} from './components';
 import Modal from '@material-ui/core/Modal';
 import axios from './../../helpers/inderceptors';
 import config from '../../config';
-import {Delete} from "@material-ui/icons";
 
 const useStyles = makeStyles(theme => ({
   root: {

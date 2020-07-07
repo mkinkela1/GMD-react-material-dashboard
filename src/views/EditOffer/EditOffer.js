@@ -99,11 +99,13 @@ const EditOffer = (props) => {
 
   useEffect(() => {
 
+    // eslint-disable-next-line react/prop-types
     axios(`${config.apiUrl}/offer/${props.match.params.id}`)
       .then(r => setOffer(r.data))
       .catch(e => console.log(e));
 
-  }, []);
+    // eslint-disable-next-line react/prop-types
+  }, [props.match.params.id]);
 
   const [open, setOpen] = useState(false);
 
