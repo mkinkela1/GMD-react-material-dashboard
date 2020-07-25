@@ -14,7 +14,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  TablePagination, Button
+  TablePagination,
+  Button,
+  Switch
 } from '@material-ui/core';
 import {Create, Delete} from '@material-ui/icons';
 import { withRouter } from 'react-router';
@@ -130,6 +132,7 @@ const OffersList = props => {
                   </TableCell>
                   <TableCell>ID</TableCell>
                   <TableCell>Naziv</TableCell>
+                  <TableCell>Ponuda prihvaćena</TableCell>
                   <TableCell>Datum izrade</TableCell>
                   <TableCell>Akcije</TableCell>
                 </TableRow>
@@ -151,6 +154,7 @@ const OffersList = props => {
                     </TableCell>
                     <TableCell>{offer.documentNumber}</TableCell>
                     <TableCell>{offer.documentName}</TableCell>
+                    <TableCell><Switch checked={offer.accepted} onChange={console.log('changed')} /></TableCell>
                     <TableCell>{moment(offer.createdAt).format('DD/MM/YYYY')}</TableCell>
                     <TableCell>
                       <Button className={classes.button} onClick={() => handleEdit(offer._id)}><Create /></Button>
