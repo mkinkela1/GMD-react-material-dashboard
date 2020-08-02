@@ -1,24 +1,34 @@
-import React  from 'react';
+import React, {useState}  from 'react';
 import {
   makeStyles,
   IconButton,
+  Typography,
+  TextField, Button
 } from '@material-ui/core';
+import {
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider
+} from '@material-ui/pickers';
 import { Close } from '@material-ui/icons';
 import setCreateEventExpansionVisibility from '../../../../store/setters/SetCreateEventExpansionVisibility';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { getVisibilityOfCreateEventExpansion } from '../../../../store/reducers/CreateEventExpansionReducer';
+import DateFnsUtils from '@date-io/date-fns';
 
 const CreateEvent = (props) => {
 
   const classes = useStyles();
+  const [selectedDate, setSelectedDate] = useState(Date.now());
+  const [selectedTime, setSelectedTime] = useState(Date.now());
 
   return (
     <div className={[props.isVisible ? classes.container : classes.hideContainer]}>
       <header className={classes.header}>
-        <h1 className={classes.title}>
-          a
-        </h1>
+        <Typography variant="h4">
+          Novi događaj
+        </Typography>
         <IconButton
           aria-label="close"
           className={classes.closeButton}
@@ -30,15 +40,43 @@ const CreateEvent = (props) => {
 
       <div className={classes.content}>
 
-        <section className={[classes.section, classes.status]}>
-          <h2 className={classes.sectionTitle}>b</h2>
-
-          <div className={classes.statusGrid}>
-            c
-          </div>
-        </section>
-
-
+        <div className={classes.row}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              format="dd.MM.yyyy"
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+              label="Datum"
+              onChange={setSelectedDate}
+              value={selectedDate}
+              variant="inline"
+            />
+            <KeyboardTimePicker
+              ampm={false}
+              clearable
+              label="Vrijeme"
+              onChange={setSelectedTime}
+              value={selectedTime}
+            />
+          </MuiPickersUtilsProvider>
+        </div>
+        <div className={classes.row}>
+          <TextField
+            fullWidth
+            label="Naziv događaja"
+          />
+        </div>
+        <div className={classes.row}>
+          <div>&nbsp;</div>
+          <Button
+            color="primary"
+            variant="contained"
+          >
+            Kreiraj novi događaj
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -77,74 +115,20 @@ const useStyles = makeStyles(theme=> ({
     color: '#505D68',
     borderBottom: '1px solid #CCD9DF',
   },
-  title: {
-    fontSize: '18px',
-    lineHeight: '24px',
-    fontWeight: 500,
-    margin: 0,
-    textAlign: 'left'
-  },
   closeButton: {
     padding: '0'
   },
   content: {
     padding: '30px',
   },
-  section: {
-    color: '#505D68',
-    fontSize: '14px',
-    lineHeight: '20px',
-    paddingBottom: '30px',
-    borderBottom: '1px solid #CCD9DF',
-    marginBottom: '30px',
-    textAlign: 'left'
-  },
-  sectionTitle: {
-    color: '#373D41',
-    fontSize: '14px',
-    fontWeight: 500,
-    lineHeight: '20px',
-    margin: '0 0 12px'
-  },
-  sectionText: {
-    margin: 0
-  },
-  statusGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridColumnGap: '20px',
-    gridRowGap: '14px'
-  },
-  statusTitle: {
-    fontWeight: 500,
-    margin: 0
-  },
-  statusIncome: {
-    textAlign: 'center',
-    margin: 0
-  },
-  notBooked: {
+  row: {
+    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    marginBottom: 10
   },
-  income: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gridColumnGap: '20px'
-  },
-  activityGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 2fr',
-    gridColumnGap: '20px'
-  },
-  image: {
-    width: '100%',
-    objectFit: 'contain',
-    alignSelf: 'center'
-  },
-  invoices: {
-    border: 'none'
+  button: {
+    marginTop: 20
   }
 }));
 
