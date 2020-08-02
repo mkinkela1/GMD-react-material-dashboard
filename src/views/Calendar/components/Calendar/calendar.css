@@ -1,0 +1,193 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+.calendar-icon {
+    font-family: 'Material Icons', serif;
+    font-style: normal;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+
+/* VARIABLES */
+
+:root {
+    --main-color: #1a8fff;
+    --text-color: #777;
+    --text-color-light: #ccc;
+    --border-color: #eee;
+    --bg-color: #f9f9f9;
+    --neutral-color: #fff;
+}
+
+
+/* GRID */
+
+.calendar-row {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.calendar-row-middle {
+    align-items: center;
+}
+
+.calendar-col {
+    flex-grow: 1;
+    flex-basis: 0;
+    max-width: 100%;
+}
+
+.calendar-col-start {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.calendar-col-center {
+    justify-content: center;
+    text-align: center;
+}
+
+.calendar-col-end {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+
+/* Calendar */
+
+.calendar-calendar {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    background: var(--neutral-color);
+    border: 1px solid var(--border-color);
+}
+
+.calendar-calendar .calendar-header {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 115%;
+    padding: 1.5em 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-calendar .calendar-header .calendar-icon {
+    cursor: pointer;
+    transition: .15s ease-out;
+}
+
+.calendar-calendar .calendar-header .calendar-icon:hover {
+    transform: scale(1.75);
+    transition: .25s ease-out;
+    color: var(--main-color);
+}
+
+.calendar-calendar .calendar-header .calendar-icon:first-of-type {
+    margin-left: 1em;
+}
+
+.calendar-calendar .calendar-header .calendar-icon:last-of-type {
+    margin-right: 1em;
+}
+
+.calendar-calendar .calendar-days {
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--text-color-light);
+    font-size: 70%;
+    padding: .75em 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-calendar .calendar-body .calendar-cell {
+    position: relative;
+    height: 5em;
+    border-right: 1px solid var(--border-color);
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--neutral-color);
+    transition: 0.25s ease-out;
+}
+
+.calendar-calendar .calendar-body .calendar-cell:hover {
+    background: var(--bg-color);
+    transition: 0.5s ease-out;
+}
+
+.calendar-calendar .calendar-body .calendar-selected {
+    border-left: 10px solid transparent;
+    border-image: linear-gradient(45deg, #1a8fff 0%,#53cbf1 40%);
+    border-image-slice: 1;
+}
+
+.calendar-calendar .calendar-body .calendar-row {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-calendar .calendar-body .calendar-row:last-child {
+    border-bottom: none;
+}
+
+.calendar-calendar .calendar-body .calendar-cell:last-child {
+    border-right: none;
+}
+
+.calendar-calendar .calendar-body .calendar-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calendar-calendar .calendar-body .calendar-cell .calendar-number {
+    position: relative;
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 700;
+    text-align: center;
+}
+
+.calendar-calendar .calendar-body .calendar-disabled {
+    color: var(--text-color-light);
+    pointer-events: none;
+}
+
+.calendar-calendar .calendar-body .calendar-cell .calendar-bg {
+    font-weight: 700;
+    line-height: 1;
+    color: var(--main-color);
+    opacity: 0;
+    font-size: 8em;
+    position: absolute;
+    top: -.2em;
+    right: -.05em;
+    transition: .25s ease-out;
+    letter-spacing: -.07em;
+}
+
+.calendar-calendar .calendar-body .calendar-cell:hover .calendar-bg, .calendar-calendar .calendar-body .calendar-selected .calendar-bg  {
+    opacity: 0.05;
+    transition: .5s ease-in;
+}
+
+.calendar-calendar .calendar-body .calendar-col {
+    flex-grow: 0;
+    flex-basis: calc(100%/7);
+    width: calc(100%/7);
+}

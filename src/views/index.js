@@ -11,3 +11,4 @@ export { default as Offer } from './Offer';
 export { default as CreateOffer } from './CreateOffer';
 export { default as GeneratePDF } from './GeneratePDF';
 export { default as EditOffer } from './EditOffer';
+export { default as Calendar } from './Calendar';
