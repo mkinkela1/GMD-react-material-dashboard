@@ -17,7 +17,8 @@ import {
   CreateOffer as CreateOfferView,
   GeneratePDF as GeneratePDFView,
   EditOffer as EditOfferView,
-  Calendar as CalendarView
+  Calendar as CalendarView,
+  Projects as ProjectsView
 } from './views';
 import RouteWithLayout from './components/RouteWithLayout';
 
@@ -124,6 +125,13 @@ const Routes = () => {
         exact
         layout={MainLayout}
         path="/calendar"
+        privateRoute
+      />
+      <RouteWithLayout
+        component={ProjectsView}
+        exact
+        layout={MainLayout}
+        path="/projects"
         privateRoute
       />
       <Redirect to="/not-found" />
