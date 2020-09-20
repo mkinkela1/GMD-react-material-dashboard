@@ -1,14 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/styles';
 
-import Calendar from './components/Calendar';
 import {Button, Grid} from '@material-ui/core';
-import ListEvents from './components/ListEvents';
 import CreateEvent from './components/CreateEvent/CreateEvent';
 import setCreateEventExpansionVisibility from '../../store/setters/SetCreateEventExpansionVisibility';
-import {getVisibilityOfCreateEventExpansion} from "../../store/reducers/CreateEventExpansionReducer";
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
+import {getVisibilityOfCreateEventExpansion} from '../../store/reducers/CreateEventExpansionReducer';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import { Calendar as BigCalendar, momentLocalizer, Views } from 'react-big-calendar'
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import config from '../../config';
+import axios from './../../helpers/inderceptors';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+
+const localizer = momentLocalizer(moment)
+
+let allViews = Object.keys(Views).map(k => Views[k])
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,12 +47,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CalendarView = (props) => {
+
+  const [events, setEvents] = useState({});
+
   const classes = useStyles();
+
+  useEffect(() => {
+
+    axios( `${config.apiUrl}/event` )
+      .then(r => console.log(r))
+      .catch()
+  }, []);
 
   return (
     <div className={classes.root}>
       <div className={classes.row}>
-        <span className={classes.spacer} />
+        <span className={classes.spacer}/>
         <Button
           color="primary"
           onClick={() => props.visibility(true)}
@@ -52,19 +71,23 @@ const CalendarView = (props) => {
           Novi događaj
         </Button>
       </div>
-      <Grid container spacing={4}>
-        <Grid item lg={6} md={6} xl={6} xs={12}>
-          <Grid container>
-            <Calendar/>
-          </Grid>
-        </Grid>
-        <Grid item lg={6} md={6} xl={6} xs={12}>
-          <Grid container>
-            <ListEvents />
-          </Grid>
-        </Grid>
+      <Grid
+        container
+        justify={'center'}
+      >
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <BigCalendar
+            events={[events]}
+            localizer={localizer}
+            selectable
+            step={15}
+            style={{ height: 500, background: '#fff' }}
+            timeslots={8}
+            views={allViews}
+          />
+        </MuiPickersUtilsProvider>
       </Grid>
-      <CreateEvent />
+      <CreateEvent/>
     </div>
   );
 };
