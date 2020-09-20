@@ -49,6 +49,7 @@ const useStyles = makeStyles(theme => ({
 const CalendarView = (props) => {
 
   const [events, setEvents] = useState({});
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const classes = useStyles();
 
@@ -77,12 +78,14 @@ const CalendarView = (props) => {
       >
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <BigCalendar
+            date={selectedDate}
             events={[events]}
             localizer={localizer}
+            onNavigate={date => setSelectedDate(date)}
             selectable
-            step={15}
+            step={1}
             style={{ height: 500, background: '#fff' }}
-            timeslots={8}
+            timeslots={60}
             views={allViews}
           />
         </MuiPickersUtilsProvider>
