@@ -43,12 +43,13 @@
     "axios": "^0.19.2",
     "chart.js": "^2.8.0",
     "clsx": "^1.0.4",
-    "date-fns": "^2.14.0",
+    "date-fns": "^2.16.1",
     "history": "^4.9.0",
-    "moment": "^2.24.0",
+    "moment": "^2.28.0",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-big-calendar": "^0.28.0",
     "react-chartjs-2": "^2.7.6",
     "react-dom": "^16.8.6",
     "react-material-ui-calendar": "^0.2.3",
@@ -64,6 +65,7 @@
     "validate.js": "^0.13.1"
   },
   "devDependencies": {
+    "@date-io/moment": "^2.10.6",
     "cz-conventional-changelog": "^3.2.0",
     "gh-pages": "^2.2.0",
     "prettier": "^1.17.1",

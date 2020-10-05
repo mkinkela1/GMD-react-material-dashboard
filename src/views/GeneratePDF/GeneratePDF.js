@@ -238,12 +238,12 @@ const GeneratePDF = (props) => {
                 includeRightBorder={false}
                 includeTopBorder
               >
-                <DataTableCell weighting={0.3} getContent={r => r.id} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={1} getContent={r => r.productName} style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => r.quantity} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => r.unit} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPrice)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.amount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none'}} />
+                <DataTableCell weighting={0.3} getContent={r => r.id} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
+                <DataTableCell weighting={1} getContent={r => r.productName} style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
+                <DataTableCell weighting={0.3} getContent={r => r.quantity} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
+                <DataTableCell weighting={0.3} getContent={r => r.unit} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
+                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPrice)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
+                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.amount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
               </TableBody>
             </Table>
           </View>
@@ -281,10 +281,14 @@ const GeneratePDF = (props) => {
             </View>
           </View>
 
+          <View style={[styles.body, styles.row]}>
+            <Text style={styles.bottomText}>Poreznik nije u sustavu PDV-a, PDV nije obračunat temeljem čl. 90 st. 1 i st. 2 Zakona o PDV-u.</Text>
+            <Text style={styles.bottomText}>(Narodne novine br.73/13).</Text>
+          </View>
+
           <View style={[styles.body, styles.footer]}>
             <Text style={styles.bottomText}>Garancija: 2 godina</Text>
-            <Text style={styles.bottomText}>U slučaju narudžbe molimo pismenu potvrdu. PLAĆANJE: 50% AKONTACIJE PO
-              NARUDŽBI, 50% PRIJE MONTAŽE</Text>
+            <Text style={styles.bottomText}>U slučaju narudžbe molimo pismenu potvrdu. PLAĆANJE: 50% AKONTACIJE PO NARUDŽBI, 50% PRIJE MONTAŽE</Text>
             <Text style={styles.bottomText}>Tenda je u vlasništvu GMD-Nautika d.o.o. do podmirenja računa.</Text>
             <Text style={[styles.bottomText, styles.center]}>ŽIRO RAČUN: HR41 2360000-1102199574 Zagrebačka banka</Text>
             <Text style={[styles.bottomText, styles.center]}>SWIFT CODE: ZABAHR2X</Text>
