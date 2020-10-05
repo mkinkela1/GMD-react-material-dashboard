@@ -155,7 +155,7 @@ const OffersList = props => {
                     <TableCell>{offer.documentNumber}</TableCell>
                     <TableCell>{offer.documentName}</TableCell>
                     <TableCell><Switch checked={offer.accepted} onChange={console.log('changed')} /></TableCell>
-                    <TableCell>{moment(offer.createdAt).format('DD/MM/YYYY')}</TableCell>
+                    <TableCell>{moment(offer.documentDate).format('DD.MM.YYYY.')}</TableCell>
                     <TableCell>
                       <Button className={classes.button} onClick={() => handleEdit(offer._id)}><Create /></Button>
                       <Button className={classes.button} onClick={() => handleDeleteSingle(offer._id)}><Delete /></Button>

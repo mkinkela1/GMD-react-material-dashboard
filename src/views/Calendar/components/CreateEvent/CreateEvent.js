@@ -1,4 +1,4 @@
-import React, {useState}  from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   makeStyles,
   IconButton,
@@ -6,25 +6,55 @@ import {
   TextField, Button
 } from '@material-ui/core';
 import {
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider
+  MuiPickersUtilsProvider,
+  DateTimePicker
 } from '@material-ui/pickers';
+import {
+  Checkbox,
+  FormControlLabel
+} from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import setCreateEventExpansionVisibility from '../../../../store/setters/SetCreateEventExpansionVisibility';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import { getVisibilityOfCreateEventExpansion } from '../../../../store/reducers/CreateEventExpansionReducer';
 import DateFnsUtils from '@date-io/date-fns';
+import axios from './../../../../helpers/inderceptors';
+import config from '../../../../config';
 
 const CreateEvent = (props) => {
 
   const classes = useStyles();
-  const [selectedDate, setSelectedDate] = useState(Date.now());
-  const [selectedTime, setSelectedTime] = useState(Date.now());
+  const [start, setStart] = useState(Date.now());
+  const [end, setEnd] = useState(Date.now());
+  const [title, setTitle] = useState('');
+  const [allDay, setAllDay] = useState(false);
+
+  const handleSaveEvent = () => {
+
+    const data = {
+      start,
+      end,
+      title,
+      allDay
+    };
+
+    axios.post( `${config.apiUrl}/event`, data )
+      .then(r => console.log(r))
+      .catch(e => console.log(e));
+
+  }
+
+  const handleChange = event => {
+    setTitle(event.target.value);
+  }
+
+  const setCheckbox = event => {
+    setAllDay(event.target.checked);
+  }
 
   return (
-    <div className={[props.isVisible ? classes.container : classes.hideContainer]}>
+    <div className={[props.isVisible ? classes.container : classes.hideContainer]} style={{zIndex: 1000}}>
       <header className={classes.header}>
         <Typography variant="h4">
           Novi događaj
@@ -42,23 +72,29 @@ const CreateEvent = (props) => {
 
         <div className={classes.row}>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              format="dd.MM.yyyy"
+            <DateTimePicker
+              ampm={false}
+              format="dd.MM.yyyy, HH:mm"
+              fullWidth
               KeyboardButtonProps={{
                 'aria-label': 'change date',
               }}
-              label="Datum"
-              onChange={setSelectedDate}
-              value={selectedDate}
+              label="Početak eventa"
+              onChange={setStart}
+              value={start}
               variant="inline"
             />
-            <KeyboardTimePicker
+            <DateTimePicker
               ampm={false}
-              clearable
-              label="Vrijeme"
-              onChange={setSelectedTime}
-              value={selectedTime}
+              format="dd.MM.yyyy, HH:mm"
+              fullWidth
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+              label="Kraj eventa"
+              onChange={setEnd}
+              value={end}
+              variant="inline"
             />
           </MuiPickersUtilsProvider>
         </div>
@@ -66,6 +102,20 @@ const CreateEvent = (props) => {
           <TextField
             fullWidth
             label="Naziv događaja"
+            onChange={handleChange}
+            value={title}
+          />
+        </div>
+        <div className={classes.row}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={allDay}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+                onChange={setCheckbox}
+              />
+            }
+            label="Cijeli dan?"
           />
         </div>
         <div className={classes.row}>
@@ -73,6 +123,7 @@ const CreateEvent = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={() => handleSaveEvent()}
           >
             Kreiraj novi događaj
           </Button>
