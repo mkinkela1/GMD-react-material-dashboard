@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 const CalendarView = (props) => {
 
-  const [events, setEvents] = useState({});
+  const [events, setEvents] = useState( []);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const classes = useStyles();
@@ -56,9 +56,17 @@ const CalendarView = (props) => {
   useEffect(() => {
 
     axios( `${config.apiUrl}/event` )
-      .then(r => console.log(r))
-      .catch()
+      .then(({data}) => {
+        console.log(data);
+        setEvents(data)
+      })
+      .catch(e => console.log(e))
   }, []);
+
+  let formats ={
+    timeGutterFormat: (date, culture, localizer) =>
+      localizer.format(date, 'HH:mm', culture),
+  }
 
   return (
     <div className={classes.root}>
@@ -73,19 +81,54 @@ const CalendarView = (props) => {
         </Button>
       </div>
       <Grid
-        container
+        style={{background: '#fff'}}
         justify={'center'}
       >
         <MuiPickersUtilsProvider utils={MomentUtils}>
           <BigCalendar
+            components={{
+              month: {
+                dateHeader: ({ date, label }) => {
+                  let highlightDate =
+                    events.length && events.find(event =>
+                      moment(date).isBetween(
+                        moment(event.start),
+                        moment(event.end),
+                        null,
+                        '[]'
+                      )
+                    ) !== undefined;
+                  return (
+                    <div>{label}</div>
+                  );
+                }
+              }
+            }}
+            culture={moment.locale('hr')}
             date={selectedDate}
-            events={[events]}
+            defaultDate={moment()}
+            endAccessor="end"
+            events={events}
+            formats={formats}
             localizer={localizer}
+            messages={{
+              today: 'Danas',
+              previous: '<',
+              next: '>',
+              month: 'Mjesec',
+              week: 'Tjedan',
+              day: 'Dan',
+              work_week: 'Radni tjedan',
+              agenda: 'Podsjetnik',
+              noEventsInRange: 'Nema događaja.',
+              allDay: 'Cijeli dan'
+            }}
             onNavigate={date => setSelectedDate(date)}
             selectable
-            step={1}
-            style={{ height: 500, background: '#fff' }}
-            timeslots={60}
+            startAccessor="start"
+            step={10}
+            style={{ height: 500 }}
+            timeslots={6}
             views={allViews}
           />
         </MuiPickersUtilsProvider>
