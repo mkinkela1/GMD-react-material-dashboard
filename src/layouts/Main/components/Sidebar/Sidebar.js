@@ -50,7 +50,7 @@ const Sidebar = props => {
       icon: <LocalOfferIcon />
     },
     {
-      title: 'Projekti',
+      title: 'Prihvaćene ponude',
       href: '/projects',
       icon: <AssignmentIcon />
     },
