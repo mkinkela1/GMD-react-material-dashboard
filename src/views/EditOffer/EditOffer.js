@@ -300,7 +300,7 @@ const EditOffer = (props) => {
                   <TextField fullWidth label="Naziv/Opis" margin="dense" name="productName" onChange={(e) => handleModalData(e)} value={item.productName}/>
                   <TextField fullWidth label="Količina" margin="dense" name="quantity" onChange={(e) => handleModalData(e)} value={+item.quantity}/>
                   <TextField fullWidth label="Jedinica mjere" margin="dense" name="unit" onChange={(e) => handleModalData(e)} value={item.unit}/>
-                  <TextField fullWidth label="Jedinična cijena" margin="dense" name="unitPrice" onChange={(e) => handleModalData(e)} value={+item.unitPrice}/>
+
                   <Button color="primary" variant="contained" type="button" onClick={() => { addItem(); handleClose(); }}>Dodaj</Button>
                   <Button color="inherit" type="button" onClick={() => { resetItem(); handleClose(); }}>Izbriši</Button>
                 </div>
