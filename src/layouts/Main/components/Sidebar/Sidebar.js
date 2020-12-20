@@ -7,6 +7,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import WorkIcon from '@material-ui/icons/Work';
 
 import { SidebarNav } from './components';
 
@@ -53,6 +54,11 @@ const Sidebar = props => {
       title: 'Projekti',
       href: '/projects',
       icon: <AssignmentIcon />
+    },
+    {
+      title: 'Radni nalozi',
+      href: '/work-orders',
+      icon: <WorkIcon />
     },
     {
       title: 'Kalendar',

@@ -89,7 +89,7 @@ const CalendarView = (props) => {
             components={{
               month: {
                 dateHeader: ({ date, label }) => {
-                  let highlightDate =
+                  /*let highlightDate =
                     events.length && events.find(event =>
                       moment(date).isBetween(
                         moment(event.start),
@@ -97,7 +97,7 @@ const CalendarView = (props) => {
                         null,
                         '[]'
                       )
-                    ) !== undefined;
+                    ) !== undefined;*/
                   return (
                     <div>{label}</div>
                   );

@@ -12,3 +12,6 @@ export { default as CreateOffer } from './CreateOffer';
 export { default as GeneratePDF } from './GeneratePDF';
 export { default as EditOffer } from './EditOffer';
 export { default as Calendar } from './Calendar';
+export { default as WorkOrders } from './WorkOrder';
+export { default as CreateWorkOrder } from './CreateWorkOrder';
+export { default as GenerateWorkOrderPDF } from './GenerateWorkOrderPDF';
