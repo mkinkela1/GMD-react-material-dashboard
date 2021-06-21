@@ -81,7 +81,9 @@ const styles = StyleSheet.create({
     fontWeight: 'normal'
   },
   title: {
-    fontSize: 11
+    fontFamily: 'Roboto',
+    fontSize: 11,
+    fontWeight: 'normal'
   },
   titleBold: {
     fontSize: 11,
