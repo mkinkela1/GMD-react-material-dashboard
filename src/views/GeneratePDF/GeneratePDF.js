@@ -3,6 +3,7 @@ import {Page, Text, Image, Document, StyleSheet, PDFViewer, View, Font} from '@r
 import getDate from './../../helpers/getDate';
 import {DataTableCell, Table, TableBody, TableCell, TableHeader} from '@david.kucsai/react-pdf-table';
 import formatMoney from '../../helpers/formatMoney';
+import { EUR_TO_HRK } from 'constants/ExchangeConstants';
 
 Font.register({
   family: 'Roboto',
@@ -205,27 +206,45 @@ const GeneratePDF = (props) => {
                 includeRightBorder={false}
                 includeTopBorder={false}
               >
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
+                <TableCell
+                  style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}
+                  weighting={0.3}
+                >
                   <Text style={styles.documentInfoHeaderBold}>Rbr.</Text>
                   <Text style={styles.documentInfoHeader}>No.</Text>
                 </TableCell>
-                <TableCell weighting={1} style={{padding: '2px', borderRight: 'none', justifyContent: 'flex-start'}}>
+                <TableCell
+                  style={{padding: '2px', borderRight: 'none', justifyContent: 'flex-start'}}
+                  weighting={1}
+                >
                   <Text style={styles.documentInfoHeaderBold}>Naziv/Opis</Text>
                   <Text style={styles.documentInfoHeader}>Product Name/Description</Text>
                 </TableCell>
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
+                <TableCell
+                  style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}
+                  weighting={0.3}
+                >
                   <Text style={styles.documentInfoHeaderBold}>Količina</Text>
                   <Text style={styles.documentInfoHeader}>Qty.</Text>
                 </TableCell>
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
+                <TableCell
+                  style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}
+                  weighting={0.3}
+                >
                   <Text style={styles.documentInfoHeaderBold}>Jedinica mjere</Text>
                   <Text style={styles.documentInfoHeader}>Unit</Text>
                 </TableCell>
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
+                <TableCell
+                  style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}
+                  weighting={0.3}
+                >
                   <Text style={styles.documentInfoHeaderBold}>Jedinična cijena</Text>
                   <Text style={styles.documentInfoHeader}>Unit price</Text>
                 </TableCell>
-                <TableCell weighting={0.3} style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}>
+                <TableCell
+                  style={{padding: '2px', borderRight: 'none', textAlign: 'center', justifyContent: 'flex-start'}}
+                  weighting={0.3}
+                >
                   <Text style={styles.documentInfoHeaderBold}>Iznos</Text>
                   <Text style={styles.documentInfoHeader}>Ukupno</Text>
                 </TableCell>
@@ -240,12 +259,46 @@ const GeneratePDF = (props) => {
                 includeRightBorder={false}
                 includeTopBorder
               >
-                <DataTableCell weighting={0.3} getContent={r => r.id} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
-                <DataTableCell weighting={1} getContent={r => r.productName} style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
-                <DataTableCell weighting={0.3} getContent={r => r.quantity} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
-                <DataTableCell weighting={0.3} getContent={r => r.unit} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.unitPrice)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
-                <DataTableCell weighting={0.3} getContent={r => formatMoney(r.amount)} style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}} />
+                <DataTableCell
+                  getContent={r => r.id}
+                  style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
+                  weighting={0.3}
+                />
+                <DataTableCell
+                  getContent={r => r.productName}
+                  style={{padding: '2px', textAlign: 'left', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
+                  weighting={1}
+                />
+                <DataTableCell
+                  getContent={r => r.quantity}
+                  style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
+                  weighting={0.3}
+                />
+                <DataTableCell
+                  getContent={r => r.unit}
+                  style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
+                  weighting={0.3}
+                />
+                <DataTableCell
+                  getContent={r => (
+                    <View>
+                      <Text style={{textAlign: 'right'}}>{formatMoney(r.unitPrice)} HRK</Text>
+                      <Text style={{textAlign: 'right'}}>{formatMoney(r.unitPrice / EUR_TO_HRK)} EUR</Text>
+                    </View>
+                  )}
+                  style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
+                  weighting={0.3}
+                />
+                <DataTableCell
+                  getContent={r => (
+                    <View>
+                      <Text style={{textAlign: 'right'}}>{formatMoney(r.amount)} HRK</Text>
+                      <Text style={{textAlign: 'right'}}>{formatMoney(r.amount / EUR_TO_HRK)} EUR</Text>
+                    </View>
+                  )}
+                  style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
+                  weighting={0.3}
+                />
               </TableBody>
             </Table>
           </View>
@@ -254,9 +307,9 @@ const GeneratePDF = (props) => {
             <View style={{width: '50%', marginLeft: 'auto', order: '2'}}>
               <Table data={sumUpEverything}>
                 <TableHeader>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
-                  <TableCell></TableCell>
+                  <TableCell />
+                  <TableCell />
+                  <TableCell />
                 </TableHeader>
                 <TableBody
                   includeBottomBorder
@@ -269,14 +322,24 @@ const GeneratePDF = (props) => {
                     weighting={1}
                   />
                   <DataTableCell
-                    getContent={r => <Text style={{textAlign: 'right'}}>{r.value}</Text>}
-                    weighting={1}
+                    getContent={r => (
+                      <View>
+                        <Text style={{textAlign: 'right'}}>{formatMoney(r.value)}</Text>
+                        <Text style={{textAlign: 'right'}}>{formatMoney(r.value / EUR_TO_HRK)}</Text>
+                      </View>
+                    )}
                     style={{borderRight: 'none!important'}}
+                    weighting={1}
                   />
                   <DataTableCell
-                    getContent={r => <View style={{textAlign: 'center'}}><Text style={[styles.documentInfoHeaderBold]}>HRK</Text></View>}
-                    weighting={0.3}
+                    getContent={r => (
+                      <View style={{textAlign: 'center'}}>
+                        <Text style={[styles.documentInfoHeaderBold]}>HRK</Text>
+                        <Text style={[styles.documentInfoHeaderBold]}>EUR</Text>
+                      </View>
+                    )}
                     style={{borderLeft: 'none!important'}}
+                    weighting={0.3}
                   />
                 </TableBody>
               </Table>

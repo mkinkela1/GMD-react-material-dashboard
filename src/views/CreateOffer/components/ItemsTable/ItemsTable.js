@@ -16,6 +16,7 @@ import {
   TablePagination, Button
 } from '@material-ui/core';
 import {Delete} from '@material-ui/icons';
+import { EUR_TO_HRK } from 'constants/ExchangeConstants';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -143,8 +144,14 @@ const ItemsTable = props => {
                     <TableCell>{item.productName}</TableCell>
                     <TableCell>{item.quantity}</TableCell>
                     <TableCell>{item.unit}</TableCell>
-                    <TableCell>{item.unitPrice.toFixed(2)}</TableCell>
-                    <TableCell>{item.amount.toFixed(2)}</TableCell>
+                    <TableCell>
+                      {item.unitPrice.toFixed(2)} HRK<br />
+                      {(item.unitPrice / EUR_TO_HRK).toFixed(2)} EUR
+                    </TableCell>
+                    <TableCell>
+                      {item.amount.toFixed(2)} HRK<br />
+                      {(item.amount / EUR_TO_HRK).toFixed(2)} EUR
+                    </TableCell>
 
                   </TableRow>
                 ))}
