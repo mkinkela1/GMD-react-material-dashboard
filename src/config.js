@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: 'https://sleepy-wildwood-04528.herokuapp.com/api'
+  apiUrl: 'https://gmd-api.onrender.com/api'
 //   apiUrl: 'http://localhost:8001/api'
 };
 
