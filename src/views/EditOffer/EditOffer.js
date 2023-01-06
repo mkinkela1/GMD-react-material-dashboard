@@ -24,7 +24,6 @@ import {ItemsTable} from './components';
 import Modal from '@material-ui/core/Modal';
 import axios from './../../helpers/inderceptors';
 import config from '../../config';
-import { EUR_TO_HRK } from 'constants/ExchangeConstants';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -334,10 +333,8 @@ const EditOffer = (props) => {
                   <TableCell>SVEUKUPNO</TableCell>
                   <TableCell>
                     {offer.items.map(item => item.amount).reduce((acc, curr) => ( acc+ curr ), 0).toFixed(2)}<br />
-                    {(offer.items.map(item => item.amount).reduce((acc, curr) => ( acc+ curr ), 0) / EUR_TO_HRK).toFixed(2)}
                   </TableCell>
                   <TableCell>
-                    HRK<br />
                     EUR
                   </TableCell>
                 </TableRow>

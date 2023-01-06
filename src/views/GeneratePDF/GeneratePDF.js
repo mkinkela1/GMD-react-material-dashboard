@@ -3,7 +3,6 @@ import {Page, Text, Image, Document, StyleSheet, PDFViewer, View, Font} from '@r
 import getDate from './../../helpers/getDate';
 import {DataTableCell, Table, TableBody, TableCell, TableHeader} from '@david.kucsai/react-pdf-table';
 import formatMoney from '../../helpers/formatMoney';
-import { EUR_TO_HRK } from 'constants/ExchangeConstants';
 
 Font.register({
   family: 'Roboto',
@@ -282,8 +281,7 @@ const GeneratePDF = (props) => {
                 <DataTableCell
                   getContent={r => (
                     <View>
-                      <Text style={{textAlign: 'right'}}>{formatMoney(r.unitPrice)} HRK</Text>
-                      <Text style={{textAlign: 'right'}}>{formatMoney(r.unitPrice / EUR_TO_HRK)} EUR</Text>
+                      <Text style={{textAlign: 'right'}}>{formatMoney(r.unitPrice)} EUR</Text>
                     </View>
                   )}
                   style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
@@ -292,8 +290,7 @@ const GeneratePDF = (props) => {
                 <DataTableCell
                   getContent={r => (
                     <View>
-                      <Text style={{textAlign: 'right'}}>{formatMoney(r.amount)} HRK</Text>
-                      <Text style={{textAlign: 'right'}}>{formatMoney(r.amount / EUR_TO_HRK)} EUR</Text>
+                      <Text style={{textAlign: 'right'}}>{formatMoney(r.amount)} EUR</Text>
                     </View>
                   )}
                   style={{padding: '2px', textAlign: 'center', justifyContent: 'flex-start', fontSize: 10, borderRight: 'none', fontFamily: 'Roboto'}}
@@ -325,7 +322,6 @@ const GeneratePDF = (props) => {
                     getContent={r => (
                       <View>
                         <Text style={{textAlign: 'right'}}>{formatMoney(r.value)}</Text>
-                        <Text style={{textAlign: 'right'}}>{formatMoney(r.value / EUR_TO_HRK)}</Text>
                       </View>
                     )}
                     style={{borderRight: 'none!important'}}
@@ -334,7 +330,6 @@ const GeneratePDF = (props) => {
                   <DataTableCell
                     getContent={r => (
                       <View style={{textAlign: 'center'}}>
-                        <Text style={[styles.documentInfoHeaderBold]}>HRK</Text>
                         <Text style={[styles.documentInfoHeaderBold]}>EUR</Text>
                       </View>
                     )}
